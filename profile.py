@@ -60,12 +60,12 @@ class Window:
 
         self.genderLabel=customtkinter.CTkLabel(self.pInfoFrame,text="Gender ",font=("Roboto",18))
         self.genderLabel.place(x=670,y=70,anchor="nw")
-        genders=['Select Your Gender','Male','Female']
-        self.genderOption=customtkinter.CTkOptionMenu(self.pInfoFrame,width=150,height=3,font=("Roboto",18),corner_radius=3,values=genders,fg_color="white",text_color="black",dropdown_font=("Roboto",18))
+        genders=['Select Option','Male','Female']
+        self.genderOption=customtkinter.CTkOptionMenu(self.pInfoFrame,values=genders,fg_color="white",font=("Roboto",18),text_color="black")
         self.genderOption.pack_propagate(False)
         self.genderOption.place(x=780,y=70,anchor="nw")
 
-        self.nextbutton=customtkinter.CTkButton(self.pInfoFrame,text="Next",command=self.contact,fg_color="#7FB3D5")
+        self.nextbutton=customtkinter.CTkButton(self.pInfoFrame,text="Next",command=self.contact,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton.place(x=900,y=118,anchor="nw")
 
     def contact(self):
@@ -84,10 +84,10 @@ class Window:
         self.countryCodeLabel.place(x=20,y=10,anchor="nw")
         self.codeFrame=customtkinter.CTkScrollableFrame(self.contactInfoFrame,)
         self.codes = [
-    "Select Code","United States 1","Canada 1","Russia 7","Kazakhstan 7","Egypt 20","South Africa 27","Greece 30","Netherlands 31","Belgium 32","France 33","Spain 34",
+    "Select Option","United States 1","Canada 1","Russia 7","Kazakhstan 7","Egypt 20","South Africa 27","Greece 30","Netherlands 31","Belgium 32","France 33","Spain 34",
     "Hungary 36","Italy 39","Romania 40","Switzerland 41","Austria 43","United Kingdom 44","Denmark 45","Sweden 46","Norway 47","Poland 48","Germany 49","Peru 51",
     "Mexico 52","Cuba 53","Argentina 54","Brazil 55","Chile 56","Colombia 57","Venezuela 58","Malaysia 60","Australia 61","Indonesia 62","Philippines 63","New Zealand 64",
-    "Singapore 65","Thailand 66","Japan 81","South Korea 82","Vietnam 84","China 86","Turkey 90","India 91""Pakistan 92","Afghanistan 93","Sri Lanka 94","Myanmar  95","Iran 98","Morocco 212",
+    "Singapore 65","Thailand 66","Japan 81","South Korea 82","Vietnam 84","China 86","Turkey 90","India 91","Pakistan 92","Afghanistan 93","Sri Lanka 94","Myanmar  95","Iran 98","Morocco 212",
     "Algeria 213","Tunisia 216","Libya 218","Gambia 220","Senegal 221","Mauritania 222","Mali 223","Guinea 224","Ivory Coast 225","Burkina Faso 226","Niger 227","Togo 228",
     "Benin 229","Mauritius 230","Liberia 231","Sierra Leone 232","Ghana 233","Nigeria 234","Chad 235","Cameroon 237","Cape Verde 238","Equatorial Guinea 240","Gabon 241",
     "Congo 243","Angola 244","Guinea-Bissau 245","Seychelles 248","Sudan 249","Rwanda 250","Ethiopia 251","Somalia 252","Djibouti 253","Kenya 254","Tanzania 255","Uganda 256",
@@ -103,7 +103,7 @@ class Window:
     "Nepal 977","Tajikistan 992","Turkmenistan 993","Azerbaijan 994","Georgia 995","Kyrgyzstan 996","Uzbekistan 998"
 ]
 
-        self.codeOption=customtkinter.CTkOptionMenu(self.contactInfoFrame,width=150,height=3,font=("Roboto",18),corner_radius=3,values=self.codes,fg_color="white",text_color="black",dropdown_font=("Roboto",18))
+        self.codeOption=customtkinter.CTkOptionMenu(self.contactInfoFrame,values=self.codes,fg_color="white",font=("Roboto",18),text_color="black")
         self.codeOption.pack_propagate(False)
         self.codeOption.place(x=150,y=10,anchor="nw")
 
@@ -140,7 +140,7 @@ class Window:
         self.countryEntry=customtkinter.CTkEntry(self.contactInfoFrame,width=250,height=2,placeholder_text="",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
         self.countryEntry.place(x=120,y=300,anchor="nw")
 
-        self.nextbutton2=customtkinter.CTkButton(self.contactInfoFrame,text="Next",command=self.physicalChar,fg_color="#7FB3D5")
+        self.nextbutton2=customtkinter.CTkButton(self.contactInfoFrame,text="Next",command=self.physicalChar,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton2.place(x=900,y=350,anchor="nw")
 
     def physicalChar(self):
@@ -167,12 +167,12 @@ class Window:
 
         self.disablityLabel=customtkinter.CTkLabel(self.physicalCharFrame,text="Disability: ",font=("Roboto",18))
         self.disablityLabel.place(x=770,y=10,anchor="nw")
-        options=['No','Yes']
-        self.disabilityOption=customtkinter.CTkOptionMenu(self.physicalCharFrame,width=150,height=3,font=("Roboto",18),corner_radius=3,values=options,fg_color="white",text_color="black",dropdown_font=("Roboto",18))
+        options=["Select Option",'No','Yes']
+        self.disabilityOption=customtkinter.CTkOptionMenu(self.physicalCharFrame,values=options,fg_color="white",font=("Roboto",18),text_color="black")
         self.disabilityOption.pack_propagate(False)
         self.disabilityOption.place(x=870,y=10,anchor="nw")
 
-        self.nextbutton3=customtkinter.CTkButton(self.physicalCharFrame,text="Next",command=self.vitalSigns,fg_color="#7FB3D5")
+        self.nextbutton3=customtkinter.CTkButton(self.physicalCharFrame,text="Next",command=self.vitalSigns,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton3.place(x=900,y=50,anchor="nw")
 
 
@@ -223,7 +223,7 @@ class Window:
         self.WBCEntry=customtkinter.CTkEntry(self.vitalSignsInfoFrame,width=150,height=2,placeholder_text="Billions per liter",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
         self.WBCEntry.place(x=250,y=310,anchor="nw")
 
-        self.nextbutton4=customtkinter.CTkButton(self.vitalSignsInfoFrame,text="Next",command=self.lifestyle,fg_color="#7FB3D5")
+        self.nextbutton4=customtkinter.CTkButton(self.vitalSignsInfoFrame,text="Next",command=self.lifestyle,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton4.place(x=900,y=360,anchor="nw")
 
     def lifestyle(self):
@@ -235,50 +235,42 @@ class Window:
         self.lifestyleInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Lifestyle and Behavioral Factors ",font=("Roboto",20),text_color="blue")
         self.lifestyleInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.lifestyleInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=410,border_width=2,border_color="#A3E4D7")
+        self.lifestyleInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=150,border_width=2,border_color="#A3E4D7")
         self.lifestyleInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
+        self.smokingStatusLabel=customtkinter.CTkLabel(self.lifestyleInfoFrame,text="Smoking Status:",font=("Roboto",18))
+        self.smokingStatusLabel.place(x=20,y=10,anchor="nw")
+        smokingOptions=['Select Option','Non-smoker','Current smoker','Former smoker','Occasional smoker','Social smoker']
+        self.smokingAnswer=customtkinter.CTkOptionMenu(self.lifestyleInfoFrame,values=smokingOptions,font=("Roboto",18),fg_color="white",text_color="black")
+        self.smokingAnswer.place(x=250,y=10,anchor="nw")
+
+        self.alcoholConsumptionLabel=customtkinter.CTkLabel(self.lifestyleInfoFrame,text="Alcohol Consumption:",font=("Roboto",18))
+        self.alcoholConsumptionLabel.place(x=550,y=10,anchor="nw")
+        self.consumptionOptions=['Select Option','Non-Alcoholic','Occasional/Event Drinker','Moderate Drinker','Heavy Drinker','Binge Drinker']
+        self.consumptionAnswer=customtkinter.CTkOptionMenu(self.lifestyleInfoFrame,values=self.consumptionOptions,font=("Roboto",18),fg_color="white",text_color="black")
+        self.consumptionAnswer.place(x=750,y=10,anchor="nw")
+
+        self.physicalExerciseLevelLabel=customtkinter.CTkLabel(self.lifestyleInfoFrame,text="Physical Exercise Level:",font=("Roboto",18))
+        self.physicalExerciseLevelLabel.place(x=20,y=60,anchor="nw")
+        self.exerciseOptions=["Select Option","Sedentary","Lightly active","Moderately active","Very active","Extremely active"]
+        self.exerciesAnswer=customtkinter.CTkOptionMenu(self.lifestyleInfoFrame,values=self.exerciseOptions,font=("Roboto",18),fg_color="white",text_color="black")
+        self.exerciesAnswer.place(x=250,y=60,anchor="nw")
+
+        self.dietaryHabitsLabel=customtkinter.CTkLabel(self.lifestyleInfoFrame,text="Dietary Habits:",font=("Roboto",18))
+        self.dietaryHabitsLabel.place(x=550,y=60,anchor="nw")
+        self.dietOption=["Select Option","Three Meals a Day","Intermittent Fasting","Two Meals a Day","One Meal a Day"]
+        self.dietAnswer=customtkinter.CTkOptionMenu(self.lifestyleInfoFrame,values=self.dietOption,font=("Roboto",18),fg_color="white",text_color="black")
+        self.dietAnswer.place(x=750,y=60,anchor="nw")
+
+        self.nextbutton5=customtkinter.CTkButton(self.lifestyleInfoFrame,text="Submit",font=("Roboto",18),command=self.submit,fg_color="#7FB3D5")
+        self.nextbutton5.place(x=900,y=100,anchor="nw")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
+    def submit(self):
+        if hasattr(self,'submit_clicked') and self.submit_clicked:
+            return
+        self.submit_clicked=True
         
-        
-
-
-
-        
-
-    
-
-
-
-
-
-
-
-
-
 
 
 
