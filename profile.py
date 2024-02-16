@@ -13,14 +13,20 @@ class Window:
         
         self.profileLabel=customtkinter.CTkLabel(self.root,text="Your Profile",font=("Roboto",28))
         self.profileLabel.pack(pady=20)
-        self.setUp()
-        # self.updateButton=customtkinter.CTkButton(self.root,text="Update Profile",font=("Roboto",20),command=self.setUp)
-        # self.updateButton.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=700)
+        self.updateButton=customtkinter.CTkButton(self.root,text="Update Profile",font=("Roboto",20),command=self.setUp)
+        self.updateButton.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=700)
+        self.profile()
+
+    def profile(self):
+        self.profileFrame=customtkinter.CTkFrame(self.root,width=1200,height=1000,border_width=2,border_color="#76D7C4")
+        self.profileFrame.pack_propagate(False)
+        self.profileFrame.pack(pady=50)
 
 
     def setUp(self):
         
-    
+        self.profileFrame.pack_forget()
+
         self.mainFrame=customtkinter.CTkScrollableFrame(self.root,width=1200,height=800,border_width=2,border_color="#76D7C4")
         #self.mainFrame.pack_propagate(False)
         self.mainFrame.pack(pady=50)
@@ -270,6 +276,11 @@ class Window:
         if hasattr(self,'submit_clicked') and self.submit_clicked:
             return
         self.submit_clicked=True
+
+
+        self.mainFrame.pack_forget()
+
+        
         
 
 
