@@ -1,5 +1,4 @@
 import customtkinter
-import ttkbootstrap as tb
 
 class Window:
     def __init__(self):
@@ -15,12 +14,96 @@ class Window:
         self.profileLabel.pack(pady=20)
         self.updateButton=customtkinter.CTkButton(self.root,text="Update Profile",font=("Roboto",20),command=self.setUp)
         self.updateButton.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=700)
+        
+        
         self.profile()
 
     def profile(self):
-        self.profileFrame=customtkinter.CTkFrame(self.root,width=1200,height=1000,border_width=2,border_color="#76D7C4")
-        self.profileFrame.pack_propagate(False)
+        self.profileFrame = customtkinter.CTkScrollableFrame(self.root, width=1200, height=1000, border_width=2, border_color="#76D7C4")
         self.profileFrame.pack(pady=50)
+
+        self.personalILabel = customtkinter.CTkLabel(self.profileFrame, text="Personal Information", font=("Roboto", 20), text_color="blue")
+        self.personalILabel.pack(side=customtkinter.TOP, anchor=customtkinter.NW,pady=10)
+
+        self.displayNameLabel = customtkinter.CTkLabel(self.profileFrame, text="Full Name: " , font=("Roboto", 18) )
+        self.displayNameLabel.pack(anchor="nw")
+
+        self.displayDOBLabel = customtkinter.CTkLabel(self.profileFrame, text="Date of Birth: ", font=("Roboto", 18))
+        self.displayDOBLabel.pack(anchor="nw")
+
+        self.displayAgeLabel = customtkinter.CTkLabel(self.profileFrame, text="Age: ", font=("Roboto", 18))
+        self.displayAgeLabel.pack(anchor="nw")
+
+        self.displayGenderLabel = customtkinter.CTkLabel(self.profileFrame, text="Gender: ", font=("Roboto", 18))
+        self.displayGenderLabel.pack(anchor="nw")
+
+        self.displayContactInfoLabel = customtkinter.CTkLabel(self.profileFrame, text="Contact Information", font=("Roboto", 20), text_color="blue")
+        self.displayContactInfoLabel.pack(anchor="nw",pady=10)
+
+        self.displayMobileNoLabel = customtkinter.CTkLabel(self.profileFrame, text="Mobile No: ", font=("Roboto", 18))
+        self.displayMobileNoLabel.pack(anchor="nw")
+        
+        self.displayeEmailLabel = customtkinter.CTkLabel(self.profileFrame, text="Email: ", font=("Roboto", 18))
+        self.displayeEmailLabel.pack(anchor="nw")
+
+        self.displayFullAddressLabel = customtkinter.CTkLabel(self.profileFrame, text="Address: ", font=("Roboto", 18))
+        self.displayFullAddressLabel.pack(anchor="nw")
+
+        self.displayPhysicalCharInfoLabel = customtkinter.CTkLabel(self.profileFrame, text="Physical Characteristics", font=("Roboto", 20), text_color="blue")
+        self.displayPhysicalCharInfoLabel.pack(anchor="nw",pady=10)
+
+        self.displayHeightLabel = customtkinter.CTkLabel(self.profileFrame, text="Height (cm): ", font=("Roboto", 18))
+        self.displayHeightLabel.pack(anchor="nw")
+
+        self.displayWeightLabel = customtkinter.CTkLabel(self.profileFrame, text="Weight (kg): ", font=("Roboto", 18))
+        self.displayWeightLabel.pack(anchor="nw")
+
+        self.displayDisablityLabel = customtkinter.CTkLabel(self.profileFrame, text="Disability: ", font=("Roboto", 18))
+        self.displayDisablityLabel.pack(anchor="nw")
+
+        self.displayVitalSignsInfoLabel = customtkinter.CTkLabel(self.profileFrame, text="Vital Signs ", font=("Roboto", 20), text_color="blue")
+        self.displayVitalSignsInfoLabel.pack(anchor="nw",pady=10)
+
+        self.displayHeartRateLabel = customtkinter.CTkLabel(self.profileFrame, text="Heart rate (BPM): ", font=("Roboto", 18))
+        self.displayHeartRateLabel.pack(anchor="nw")
+        
+        self.displayBloodPressureLabel = customtkinter.CTkLabel(self.profileFrame, text="Blood pressure (mmHg): ", font=("Roboto", 18))
+        self.displayBloodPressureLabel.pack(anchor="nw")
+
+        self.displayTemperatureLabel=customtkinter.CTkLabel(self.profileFrame,text="Temperature (°F): ",font=("Roboto",18))
+        self.displayTemperatureLabel.pack(anchor="nw")
+        
+        self.displayOxygenSaturationLabel=customtkinter.CTkLabel(self.profileFrame,text="Oxygen Saturation (%): ",font=("Roboto",18))
+        self.displayOxygenSaturationLabel.pack(anchor="nw")
+        
+        self.displayCholesterolLevelLabel=customtkinter.CTkLabel(self.profileFrame,text="Cholesterol Level (mg/dL): ",font=("Roboto",18))
+        self.displayCholesterolLevelLabel.pack(anchor="nw")
+        
+        self.displayRBCLabel=customtkinter.CTkLabel(self.profileFrame,text="Red Blood Cell Count (T/L): ",font=("Roboto",18))
+        self.displayRBCLabel.pack(anchor="nw")
+        
+        self.displayWBCLabel=customtkinter.CTkLabel(self.profileFrame,text="White Blood Cell Count (B/L): ",font=("Roboto",18))
+        self.displayWBCLabel.pack(anchor="nw")
+
+        self.displayLifestyleInfoLabel=customtkinter.CTkLabel(self.profileFrame,text="Lifestyle and Behavioral Factors ",font=("Roboto",20),text_color="blue")
+        self.displayLifestyleInfoLabel.pack(anchor="nw",pady=10)
+
+        self.displaySmokingStatusLabel=customtkinter.CTkLabel(self.profileFrame,text="Smoking Status:",font=("Roboto",18))
+        self.displaySmokingStatusLabel.pack(anchor="nw")
+        
+        self.displayAlcoholConsumptionLabel=customtkinter.CTkLabel(self.profileFrame,text="Alcohol Consumption:",font=("Roboto",18))
+        self.displayAlcoholConsumptionLabel.pack(anchor="nw")
+        
+        self.displayPhysicalExerciseLevelLabel=customtkinter.CTkLabel(self.profileFrame,text="Physical Exercise Level:",font=("Roboto",18))
+        self.displayPhysicalExerciseLevelLabel.pack(anchor="nw")
+        
+        self.displayDietaryHabitsLabel=customtkinter.CTkLabel(self.profileFrame,text="Dietary Habits:",font=("Roboto",18))
+        self.displayDietaryHabitsLabel.pack(anchor="nw")
+        
+
+
+
+
 
 
     def setUp(self):
@@ -30,6 +113,7 @@ class Window:
         self.mainFrame=customtkinter.CTkScrollableFrame(self.root,width=1200,height=800,border_width=2,border_color="#76D7C4")
         #self.mainFrame.pack_propagate(False)
         self.mainFrame.pack(pady=50)
+
 
         self.personalInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Personal Information",font=("Roboto",20),text_color="blue")
         self.personalInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW)
@@ -113,10 +197,15 @@ class Window:
         self.codeOption.pack_propagate(False)
         self.codeOption.place(x=150,y=10,anchor="nw")
 
+        self.mobileNoLabel=customtkinter.CTkLabel(self.contactInfoFrame,text="Mobile No: ",font=("Roboto",18))
+        self.mobileNoLabel.place(x=400,y=10,anchor="nw")
+        self.mobileNoEntry=customtkinter.CTkEntry(self.contactInfoFrame,width=150,height=2,placeholder_text="Enter email",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
+        self.mobileNoEntry.place(x=510,y=10,anchor="nw")
+
         self.emailLabel=customtkinter.CTkLabel(self.contactInfoFrame,text="Email ",font=("Roboto",18))
-        self.emailLabel.place(x=400,y=10,anchor="nw")
+        self.emailLabel.place(x=750,y=10,anchor="nw")
         self.emailEntry=customtkinter.CTkEntry(self.contactInfoFrame,width=150,height=2,placeholder_text="Enter email",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
-        self.emailEntry.place(x=450,y=10,anchor="nw")
+        self.emailEntry.place(x=800,y=10,anchor="nw")
 
         self.addressLabel=customtkinter.CTkLabel(self.contactInfoFrame,text="Address",font=("Roboto",20),text_color="#5DADE2")
         self.addressLabel.place(x=20,y=70)
@@ -277,8 +366,9 @@ class Window:
             return
         self.submit_clicked=True
 
-
+        self.profile()
         self.mainFrame.pack_forget()
+        
 
         
         
