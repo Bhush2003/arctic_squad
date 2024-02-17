@@ -1,4 +1,5 @@
 import customtkinter
+from tkinter import messagebox
 
 class Window:
     def __init__(self):
@@ -118,7 +119,7 @@ class Window:
         self.personalInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Personal Information",font=("Roboto",20),text_color="blue")
         self.personalInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW)
 
-        self.pInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=170,border_width=2,border_color="#A3E4D7")
+        self.pInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=170,border_width=2,border_color="#A3E4D7",fg_color="#E8DAEF")
         self.pInfoFrame.pack_propagate(False)
         self.pInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
@@ -158,8 +159,27 @@ class Window:
         self.nextbutton=customtkinter.CTkButton(self.pInfoFrame,text="Next",command=self.contact,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton.place(x=900,y=118,anchor="nw")
 
+    def check_pInfoFields_filled(self):
+    # List of entry widgets and their corresponding labels
+        fields = [(self.fNameEntry, "First Name"),(self.mNameEntry, "Middle Name"),(self.lNameEntry, "Last Name"),
+            (self.dobEntry, "Date of Birth"),(self.ageEntry, "Age"),(self.genderOption, "Gender")]
+
+    # Check if any field is empty
+        for field, label in fields:
+            if isinstance(field, customtkinter.CTkEntry) and not field.get():
+                raise ValueError(f"Please fill in {label}")
+
+            if isinstance(field, customtkinter.CTkOptionMenu) and field.get() == 'Select Option':
+                raise ValueError(f"Please select a valid option for {label}")
+
     def contact(self):
 
+        try:
+            self.check_pInfoFields_filled()  # Check if all fields are filled
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))  # Display error message
+            return
+        
         if hasattr(self, 'contact_clicked') and self.contact_clicked:
             return
         self.contact_clicked = True
@@ -167,7 +187,7 @@ class Window:
         self.contactInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Contact Information",font=("Roboto",20),text_color="blue")
         self.contactInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.contactInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=400,border_width=2,border_color="#A3E4D7")
+        self.contactInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=400,border_width=2,border_color="#A3E4D7",fg_color="#D2B4DE")
         self.contactInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.countryCodeLabel=customtkinter.CTkLabel(self.contactInfoFrame,text="Country Code ",font=("Roboto",18))
@@ -238,7 +258,23 @@ class Window:
         self.nextbutton2=customtkinter.CTkButton(self.contactInfoFrame,text="Next",command=self.physicalChar,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton2.place(x=900,y=350,anchor="nw")
 
+    def check_contact_filled(self):
+        self.contactFields = [(self.codeOption,"Country Code"),(self.mobileNoEntry,"Mobile Number"),(self.emailEntry,"Email Address"),(self.streetAddressEntry,"Street Address"),(self.cityTownEntry,"City/Town"),(self.stateProvinceEntry,"State/Province"),(self.postalCodeEntry,"Postal Code"),(self.countryEntry,"Country")]
+        for field2,label2 in self.contactFields:
+            if isinstance(field2, customtkinter.CTkEntry) and not field2.get():
+                raise ValueError(f"Please Fill in {label2}")
+            
+            if isinstance(field2, customtkinter.CTkOptionMenu) and field2.get() == "Select Option":
+                raise ValueError(f"Please Select a Valid Option for {label2}")
+
+
     def physicalChar(self):
+
+        try:
+            self.check_contact_filled()
+        except ValueError as e:
+            messagebox.showerror("Error",str(e))
+            return
 
         if hasattr(self, 'physical_char_clicked') and self.physical_char_clicked:
             return
@@ -247,7 +283,7 @@ class Window:
         self.physicalCharInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Physical Characteristics",font=("Roboto",20),text_color="blue")
         self.physicalCharInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.physicalCharFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=100,border_width=2,border_color="#A3E4D7")
+        self.physicalCharFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=100,border_width=2,border_color="#A3E4D7",fg_color="#BB8FCE")
         self.physicalCharFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.heightLabel=customtkinter.CTkLabel(self.physicalCharFrame,text="Height (cm): ",font=("Roboto",18))
@@ -270,8 +306,22 @@ class Window:
         self.nextbutton3=customtkinter.CTkButton(self.physicalCharFrame,text="Next",command=self.vitalSigns,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton3.place(x=900,y=50,anchor="nw")
 
+    def check_physicalChar(self):
+        self.physicalCharFields = [(self.heightEntry,"Height"),(self.weightEntry,"Weight"),(self.disabilityOption,"Disability Option")]
+        for field3,label3 in self.physicalCharFields:
+            if isinstance(field3,customtkinter.CTkEntry) and not field3.get():
+                raise ValueError(f"Please Fill in {label3}")
+            
+            if isinstance(field3,customtkinter.CTkOptionMenu) and field3.get() == "Select Option":
+                raise ValueError(f"Please Select a Valid Option for {label3}")
+
 
     def vitalSigns(self):
+
+        try:
+            self.check_physicalChar()
+        except ValueError as e:
+            messagebox.showerror("Error",str(e))
 
         if hasattr(self, 'vital_Signs_clicked') and self.vital_Signs_clicked:
             return
@@ -280,7 +330,7 @@ class Window:
         self.vitalSignsInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Vital Signs ",font=("Roboto",20),text_color="blue")
         self.vitalSignsInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.vitalSignsInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=410,border_width=2,border_color="#A3E4D7")
+        self.vitalSignsInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=410,border_width=2,border_color="#A3E4D7",fg_color="#A569BD")
         self.vitalSignsInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.heartRateLabel=customtkinter.CTkLabel(self.vitalSignsInfoFrame,text="Heart rate (BPM): ",font=("Roboto",18))
@@ -321,7 +371,22 @@ class Window:
         self.nextbutton4=customtkinter.CTkButton(self.vitalSignsInfoFrame,text="Next",command=self.lifestyle,fg_color="#7FB3D5",font=("Roboto",18))
         self.nextbutton4.place(x=900,y=360,anchor="nw")
 
+    def check_vitalSignsFields(self):
+        self.vitalSignsFields = [(self.heartRateEntry, "Heart rate"),(self.bloodPressureEntry, "Blood pressure"),(self.temperatureEntry, "Temperature"),
+            (self.oxygenSaturationEntry, "Oxygen Saturation"),(self.cholesterolLevelEntry, "Cholesterol Level"),(self.RBCEntry, "Red Blood Cell Count"),(self.WBCEntry, "White Blood Cell Count")]
+
+        for field4, label4 in self.vitalSignsFields:
+            if not field4.get():
+                raise ValueError(f"Please fill in {label4}")
+
+
     def lifestyle(self):
+
+        try:
+            self.check_vitalSignsFields()
+        except ValueError as e:
+            messagebox.showerror("Error",str(e))
+            return
 
         if hasattr(self, 'lifestyle_clicked') and self.lifestyle_clicked:
             return
@@ -330,7 +395,7 @@ class Window:
         self.lifestyleInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Lifestyle and Behavioral Factors ",font=("Roboto",20),text_color="blue")
         self.lifestyleInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.lifestyleInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=150,border_width=2,border_color="#A3E4D7")
+        self.lifestyleInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=150,border_width=2,border_color="#4A235A",fg_color="#8E44AD")
         self.lifestyleInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.smokingStatusLabel=customtkinter.CTkLabel(self.lifestyleInfoFrame,text="Smoking Status:",font=("Roboto",18))
@@ -360,8 +425,22 @@ class Window:
         self.nextbutton5=customtkinter.CTkButton(self.lifestyleInfoFrame,text="Submit",font=("Roboto",18),command=self.submit,fg_color="#7FB3D5")
         self.nextbutton5.place(x=900,y=100,anchor="nw")
 
+    def check_lifestyleFields(self):
+        self.lifeStyleFieldsfields = [(self.smokingAnswer, "Smoking Status"),(self.consumptionAnswer, "Alcohol Consumption"),(self.exerciesAnswer, "Physical Exercise Level"),(self.dietAnswer, "Dietary Habits")]
+
+        for field5, label5 in self.lifeStyleFieldsfields:
+            if field5.get() == "Select Option":
+                raise ValueError(f"Please select an option for {label5}")
+
 
     def submit(self):
+
+        try:
+            self.check_lifestyleFields()
+        except ValueError as e:
+            messagebox.showerror("Error",str(e))
+            return
+
         if hasattr(self,'submit_clicked') and self.submit_clicked:
             return
         self.submit_clicked=True
