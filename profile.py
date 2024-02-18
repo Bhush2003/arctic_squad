@@ -1,5 +1,7 @@
 import customtkinter
 from tkinter import messagebox
+import re
+from datetime import datetime
 
 class Window:
     def __init__(self):
@@ -149,6 +151,8 @@ class Window:
         self.ageEntry=customtkinter.CTkEntry(self.pInfoFrame,width=150,height=2,placeholder_text="Your Age",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
         self.ageEntry.place(x=450,y=70,anchor="nw")
 
+        
+
         self.genderLabel=customtkinter.CTkLabel(self.pInfoFrame,text="Gender ",font=("Roboto",18))
         self.genderLabel.place(x=670,y=70,anchor="nw")
         genders=['Select Option','Male','Female']
@@ -171,6 +175,24 @@ class Window:
 
             if isinstance(field, customtkinter.CTkOptionMenu) and field.get() == 'Select Option':
                 raise ValueError(f"Please select a valid option for {label}")
+            
+        fName = self.fNameEntry.get()
+        mName = self.mNameEntry.get()
+        lName = self.lNameEntry.get()
+        dob = self.dobEntry.get()
+
+        if not re.match(r"^[A-Za-z]+$",fName):
+            raise ValueError("First Name\n Name should have alphabets")
+        
+        if not re.match(r"^[a-zA-Z]+$",mName):
+            raise ValueError("Middle Name\n Name should have alphabets")
+        
+        if not re.match(r"^[a-zA-Z]+$",lName):
+            raise ValueError("Last Name\n Name should have alphabets")
+        
+        if not re.match(r'^\d{2}/\d{2}/\d{4}$', dob):
+            raise ValueError("Enter valid Date\nThe format should be DD/MM/YYYY")        
+        
 
     def contact(self):
 
@@ -180,9 +202,33 @@ class Window:
             messagebox.showerror("Error", str(e))  # Display error message
             return
         
+        dob_str = self.dobEntry.get()
+
+    # Check if the date format is valid
+        if not re.match(r'^\d{2}/\d{2}/\d{4}$', dob_str):
+            messagebox.showerror("Error", "Invalid Date\nThe format should be DD/MM/YYYY")
+            return
+
+        try:
+            # Parse DOB string to a datetime object
+            dob_date = datetime.strptime(dob_str, '%d/%m/%Y')
+
+            # Calculate age till current date
+            today = datetime.today()
+            age = today.year - dob_date.year - ((today.month, today.day) < (dob_date.month, dob_date.day))
+
+            # Update ageEntry with the calculated age
+            self.ageEntry.delete(0, 'end')  # Clear any previous value
+            self.ageEntry.insert(0, str(age))
+        except ValueError:
+            messagebox.showerror("Error", "Invalid Date\nPlease enter a valid date")
+            return
+
         if hasattr(self, 'contact_clicked') and self.contact_clicked:
             return
         self.contact_clicked = True
+
+        
 
         self.contactInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Contact Information",font=("Roboto",20),text_color="blue")
         self.contactInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
@@ -267,6 +313,26 @@ class Window:
             if isinstance(field2, customtkinter.CTkOptionMenu) and field2.get() == "Select Option":
                 raise ValueError(f"Please Select a Valid Option for {label2}")
 
+            if label2 == "Mobile Number":
+                mobileNumber = field2.get()
+                india_regex = r"^\+91[6-9]\d{9}$"
+                uk_regex = r"^\+44\d{10}$"
+                usa_regex = r"^\+1\d{10}$"
+            
+                if not re.match(india_regex, mobileNumber) and not re.match(uk_regex, mobileNumber) and not re.match(usa_regex, mobileNumber):
+                    raise ValueError("Please Enter a Valid Mobile Number along with Country Code")
+                
+
+        self.email = self.emailEntry.get()
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", self.email):
+            raise ValueError("Please enter a valid email address")
+        
+        postalCode = self.postalCodeEntry.get()
+        if not re.match(r"^[0-9]+$",postalCode):
+            raise ValueError("Enter Correct Postal Code")
+        
+
+
 
     def physicalChar(self):
 
@@ -314,6 +380,15 @@ class Window:
             
             if isinstance(field3,customtkinter.CTkOptionMenu) and field3.get() == "Select Option":
                 raise ValueError(f"Please Select a Valid Option for {label3}")
+            
+        height=self.heightEntry.get()
+        weight=self.weightEntry.get()
+
+        if not re.match(r"^[0-9]+$",height):
+            raise ValueError("Height should be Numeric")
+        
+        if not re.match(r"^[0-9]+$",weight):
+            raise ValueError("Weight should be Numeric")
 
 
     def vitalSigns(self):
@@ -378,7 +453,35 @@ class Window:
         for field4, label4 in self.vitalSignsFields:
             if not field4.get():
                 raise ValueError(f"Please fill in {label4}")
+            
+        heartRate = self.heartRateEntry.get()
+        bloodPressure = self.bloodPressureEntry.get()
+        temperature = self.temperatureEntry.get()
+        oxygenSaturation = self.oxygenSaturationEntry.get()
+        cholesterolLevel = self.cholesterolLevelEntry.get()
+        rbc = self.RBCEntry.get()
+        wbc = self.WBCEntry.get()
 
+        if not re.match(r"^[0-9]+$",heartRate):
+            raise ValueError("Heart Rate should be Numeric")
+        
+        if not re.match(r"^\d+\s*/\s*\d+$", bloodPressure):
+            raise ValueError("Blood Pressure\nPlease enter blood pressure in proper format (mm/Hg)")
+        
+        if not re.match(r"^\d+(\.\d{1,2})?$", temperature):
+            raise ValueError("Temperature should be in proper format (e.g., 98.6)")
+
+        if not re.match(r"^[0-9]+$", oxygenSaturation):
+            raise ValueError("Oxygen Saturation should be Numeric")
+
+        if not re.match(r"^[0-9]+$", cholesterolLevel):
+            raise ValueError("Cholesterol Level should be Numeric")
+
+        if not re.match(r"^[0-9]+$", rbc):
+            raise ValueError("Red Blood Cell Count should be Numeric")
+
+        if not re.match(r"^[0-9]+$", wbc):
+            raise ValueError("White Blood Cell Count should be Numeric")
 
     def lifestyle(self):
 
