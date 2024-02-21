@@ -2,26 +2,32 @@ import customtkinter
 from tkinter import messagebox
 import re
 from datetime import datetime
+from tkinter import ttk
 
 class Window:
     def __init__(self):
-        self.root=customtkinter.CTk(fg_color="#58D68D")
+        self.root=customtkinter.CTk(fg_color="#caf0f8")
         self.windowColor=customtkinter.set_appearance_mode("light")
         self.theme=customtkinter.set_default_color_theme("green")
         self.window_width=self.root.winfo_screenwidth()
         self.window_height=self.root.winfo_screenheight()
         self.root.geometry(f"{self.window_width}x{self.window_height}")
-                
         
         self.profileLabel=customtkinter.CTkLabel(self.root,text="Your Profile",font=("Roboto",28))
         self.profileLabel.pack(pady=20)
-        self.updateButton=customtkinter.CTkButton(self.root,text="Update Profile",font=("Roboto",20),command=self.setUp)
-        self.updateButton.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=700)
-        
-        
+
         self.profile()
+        
+
+    def updateProfile(self):
+        self.updateButton=customtkinter.CTkButton(self.root,text="Complete Profile",width=50,font=("Roboto",20),command=self.setUp,fg_color="#4C72B0",hover_color="#78C2F0")
+        self.updateButton.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=685)  
+        
+        
 
     def profile(self):
+        self.updateProfile()
+
         self.profileFrame = customtkinter.CTkScrollableFrame(self.root, width=1200, height=1000, border_width=2, border_color="#76D7C4")
         self.profileFrame.pack(pady=50)
 
@@ -102,26 +108,26 @@ class Window:
         
         self.displayDietaryHabitsLabel=customtkinter.CTkLabel(self.profileFrame,text="Dietary Habits:",font=("Roboto",18))
         self.displayDietaryHabitsLabel.pack(anchor="nw")
-        
-
-
-
-
-
 
     def setUp(self):
         
         self.profileFrame.pack_forget()
+        self.updateButton.pack_forget()
 
-        self.mainFrame=customtkinter.CTkScrollableFrame(self.root,width=1200,height=800,border_width=2,border_color="#76D7C4")
+        self.progressBar = ttk.Progressbar(self.root,orient="vertical",length=900)
+        self.progressBar.pack(side=customtkinter.RIGHT,anchor=customtkinter.NW,padx=30,pady=60)
+
+        self.mainFrame=customtkinter.CTkScrollableFrame(self.root,width=1200,height=700,border_width=2,border_color="#76D7C4")
         #self.mainFrame.pack_propagate(False)
         self.mainFrame.pack(pady=50)
 
+        self.nullValueLabel=customtkinter.CTkLabel(self.root,text="**IF YOU DON'T KNOW ANY PARAMETER THEN GIVE NaN OR 00**",font=("Roboto",20),text_color="red")
+        self.nullValueLabel.pack()
 
         self.personalInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Personal Information",font=("Roboto",20),text_color="blue")
         self.personalInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW)
 
-        self.pInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=170,border_width=2,border_color="#A3E4D7",fg_color="#E8DAEF")
+        self.pInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=170,border_width=2,border_color="#A3E4D7",fg_color="#c3efea")
         self.pInfoFrame.pack_propagate(False)
         self.pInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
@@ -151,8 +157,6 @@ class Window:
         self.ageEntry=customtkinter.CTkEntry(self.pInfoFrame,width=150,height=2,placeholder_text="Your Age",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
         self.ageEntry.place(x=450,y=70,anchor="nw")
 
-        
-
         self.genderLabel=customtkinter.CTkLabel(self.pInfoFrame,text="Gender ",font=("Roboto",18))
         self.genderLabel.place(x=670,y=70,anchor="nw")
         genders=['Select Option','Male','Female']
@@ -160,7 +164,7 @@ class Window:
         self.genderOption.pack_propagate(False)
         self.genderOption.place(x=780,y=70,anchor="nw")
 
-        self.nextbutton=customtkinter.CTkButton(self.pInfoFrame,text="Next",command=self.contact,fg_color="#7FB3D5",font=("Roboto",18))
+        self.nextbutton=customtkinter.CTkButton(self.pInfoFrame,text="Next",command=self.contact,fg_color="#4C72B0",hover_color="#78C2F0",font=("Roboto",18))
         self.nextbutton.place(x=900,y=118,anchor="nw")
 
     def check_pInfoFields_filled(self):
@@ -228,12 +232,12 @@ class Window:
             return
         self.contact_clicked = True
 
-        
+        self.progressBar["value"]+=20
 
         self.contactInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Contact Information",font=("Roboto",20),text_color="blue")
         self.contactInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.contactInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=400,border_width=2,border_color="#A3E4D7",fg_color="#D2B4DE")
+        self.contactInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=400,border_width=2,border_color="#A3E4D7",fg_color="#c3efea")
         self.contactInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.countryCodeLabel=customtkinter.CTkLabel(self.contactInfoFrame,text="Country Code ",font=("Roboto",18))
@@ -301,7 +305,7 @@ class Window:
         self.countryEntry=customtkinter.CTkEntry(self.contactInfoFrame,width=250,height=2,placeholder_text="",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
         self.countryEntry.place(x=120,y=300,anchor="nw")
 
-        self.nextbutton2=customtkinter.CTkButton(self.contactInfoFrame,text="Next",command=self.physicalChar,fg_color="#7FB3D5",font=("Roboto",18))
+        self.nextbutton2=customtkinter.CTkButton(self.contactInfoFrame,text="Next",command=self.physicalChar,fg_color="#4C72B0",hover_color="#78C2F0",font=("Roboto",18))
         self.nextbutton2.place(x=900,y=350,anchor="nw")
 
     def check_contact_filled(self):
@@ -332,8 +336,6 @@ class Window:
             raise ValueError("Enter Correct Postal Code")
         
 
-
-
     def physicalChar(self):
 
         try:
@@ -346,10 +348,12 @@ class Window:
             return
         self.physical_char_clicked = True
 
+        self.progressBar["value"]+=20
+
         self.physicalCharInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Physical Characteristics",font=("Roboto",20),text_color="blue")
         self.physicalCharInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.physicalCharFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=100,border_width=2,border_color="#A3E4D7",fg_color="#BB8FCE")
+        self.physicalCharFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=100,border_width=2,border_color="#A3E4D7",fg_color="#c3efea")
         self.physicalCharFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.heightLabel=customtkinter.CTkLabel(self.physicalCharFrame,text="Height (cm): ",font=("Roboto",18))
@@ -369,7 +373,7 @@ class Window:
         self.disabilityOption.pack_propagate(False)
         self.disabilityOption.place(x=870,y=10,anchor="nw")
 
-        self.nextbutton3=customtkinter.CTkButton(self.physicalCharFrame,text="Next",command=self.vitalSigns,fg_color="#7FB3D5",font=("Roboto",18))
+        self.nextbutton3=customtkinter.CTkButton(self.physicalCharFrame,text="Next",command=self.vitalSigns,fg_color="#4C72B0",hover_color="#78C2F0",font=("Roboto",18))
         self.nextbutton3.place(x=900,y=50,anchor="nw")
 
     def check_physicalChar(self):
@@ -402,10 +406,12 @@ class Window:
             return
         self.vital_Signs_clicked = True
 
+        self.progressBar["value"]+=20
+
         self.vitalSignsInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Vital Signs ",font=("Roboto",20),text_color="blue")
         self.vitalSignsInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.vitalSignsInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=410,border_width=2,border_color="#A3E4D7",fg_color="#A569BD")
+        self.vitalSignsInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=410,border_width=2,border_color="#A3E4D7",fg_color="#c3efea")
         self.vitalSignsInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.heartRateLabel=customtkinter.CTkLabel(self.vitalSignsInfoFrame,text="Heart rate (BPM): ",font=("Roboto",18))
@@ -443,7 +449,7 @@ class Window:
         self.WBCEntry=customtkinter.CTkEntry(self.vitalSignsInfoFrame,width=150,height=2,placeholder_text="Billions per liter",placeholder_text_color="#D5DBDB",font=("Roboto",18),corner_radius=3)
         self.WBCEntry.place(x=250,y=310,anchor="nw")
 
-        self.nextbutton4=customtkinter.CTkButton(self.vitalSignsInfoFrame,text="Next",command=self.lifestyle,fg_color="#7FB3D5",font=("Roboto",18))
+        self.nextbutton4=customtkinter.CTkButton(self.vitalSignsInfoFrame,text="Next",command=self.lifestyle,fg_color="#4C72B0",hover_color="#78C2F0",font=("Roboto",18))
         self.nextbutton4.place(x=900,y=360,anchor="nw")
 
     def check_vitalSignsFields(self):
@@ -495,10 +501,12 @@ class Window:
             return
         self.lifestyle_clicked = True
 
+        self.progressBar["value"]+=20
+
         self.lifestyleInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Lifestyle and Behavioral Factors ",font=("Roboto",20),text_color="blue")
         self.lifestyleInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=10)
 
-        self.lifestyleInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=150,border_width=2,border_color="#4A235A",fg_color="#8E44AD")
+        self.lifestyleInfoFrame=customtkinter.CTkFrame(self.mainFrame,width=1100,height=150,border_width=2,border_color="#4A235A",fg_color="#c3efea")
         self.lifestyleInfoFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=20,pady=20)
 
         self.smokingStatusLabel=customtkinter.CTkLabel(self.lifestyleInfoFrame,text="Smoking Status:",font=("Roboto",18))
@@ -525,8 +533,8 @@ class Window:
         self.dietAnswer=customtkinter.CTkOptionMenu(self.lifestyleInfoFrame,values=self.dietOption,font=("Roboto",18),fg_color="white",text_color="black")
         self.dietAnswer.place(x=750,y=60,anchor="nw")
 
-        self.nextbutton5=customtkinter.CTkButton(self.lifestyleInfoFrame,text="Submit",font=("Roboto",18),command=self.submit,fg_color="#7FB3D5")
-        self.nextbutton5.place(x=900,y=100,anchor="nw")
+        self.submitbutton=customtkinter.CTkButton(self.lifestyleInfoFrame,text="Submit",font=("Roboto",18),command=self.submit,fg_color="#198C19",hover_color="#5EAE5E")
+        self.submitbutton.place(x=900,y=100,anchor="nw")
 
     def check_lifestyleFields(self):
         self.lifeStyleFieldsfields = [(self.smokingAnswer, "Smoking Status"),(self.consumptionAnswer, "Alcohol Consumption"),(self.exerciesAnswer, "Physical Exercise Level"),(self.dietAnswer, "Dietary Habits")]
@@ -534,7 +542,6 @@ class Window:
         for field5, label5 in self.lifeStyleFieldsfields:
             if field5.get() == "Select Option":
                 raise ValueError(f"Please select an option for {label5}")
-
 
     def submit(self):
 
@@ -548,30 +555,18 @@ class Window:
             return
         self.submit_clicked=True
 
+        self.progressBar["value"]+=20
+
         self.profile()
         self.mainFrame.pack_forget()
-        
-
-        
-        
-
-
+        self.progressBar.pack_forget()
 
     def run(self):
         self.root.mainloop()
 
-
 if __name__=="__main__":
     app=Window()
     app.run()
-
-
-
-
-
-
-
-
 
 
 
