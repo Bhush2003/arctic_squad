@@ -4,7 +4,7 @@ import customtkinter
 class App:
     def __init__(self):
         
-        self.root=customtkinter.CTk(fg_color='#58D68D')
+        self.root=customtkinter.CTk(fg_color='#caf0f8')
         self.root.geometry(f'{self.root.winfo_screenheight()}x{self.root.winfo_screenwidth()}')
         customtkinter.set_appearance_mode('light')
         customtkinter.set_default_color_theme('green')
