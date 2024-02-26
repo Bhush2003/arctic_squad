@@ -1,6 +1,5 @@
 import customtkinter
 
-
 class App:
     def __init__(self):
         
@@ -9,8 +8,6 @@ class App:
         customtkinter.set_appearance_mode('light')
         customtkinter.set_default_color_theme('green')
        
-        
-        
         self.header_text=customtkinter.CTkLabel(self.root,text='RECORDS',pady=30,font=('Roboto',50))
         self.header_text.pack()
         
@@ -113,9 +110,9 @@ class App:
     def run(self):
         self.root.mainloop()        
 
-if __name__=='__main__':
-    app=App()
-    app.run()
+# if __name__=='__main__':
+#     app=App()
+#     app.run()
     
     
    
