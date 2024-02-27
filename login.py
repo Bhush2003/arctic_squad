@@ -6,7 +6,23 @@ import webbrowser
 from record import App
 from profile import Progress
 from signUp import PatientSignupApp
+import pyrebase
+firebaseConfig = {
+  "apiKey": "AIzaSyC8syT4_Lykgkqu_nfZ7mBL-i5fPedwK7E",
+  "authDomain": "user-profile-fa7a7.firebaseapp.com",
+  "projectId": "user-profile-fa7a7",
+  "storageBucket": "user-profile-fa7a7.appspot.com",
+  "messagingSenderId": "1006259943723",
+  "appId": "1:1006259943723:web:2762207bdeed829c946d6e",
+  "measurementId": "G-FRE6J6412C",
+  "databaseURL":"https://user-profile-fa7a7-default-rtdb.asia-southeast1.firebasedatabase.app/"
+}
 
+firebase=pyrebase.initialize_app(firebaseConfig)
+
+db=firebase.database()
+auth=firebase.auth()
+storage=firebase.storage()
 
 class MainWindow():
     
@@ -35,7 +51,7 @@ class MainWindow():
         self.nameLabel=customtkinter.CTkLabel(self.dashbordFrame,text=" MedVault",font=('Roboto',22),text_color='white')
         self.nameLabel.place(x=1,y=20,anchor="nw")
 
-        self.img2=customtkinter.CTkImage(Image.open('C:/Python Programs/Project Practice/CustomTkinter/resources/log4.png'))
+        self.img2=customtkinter.CTkImage(Image.open('C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/log4.png'))
         self.b2=customtkinter.CTkButton(master=self.dashbordFrame,fg_color='#191970',width=0.8,text='Login',font=('Roboto',18),text_color='white',hover=True,image=self.img2,hover_color='#008b8b',command=self.create_login_frame)
         self.b2.place(x=self.window_width-160,y=20,anchor="nw")
 
@@ -71,7 +87,7 @@ class MainWindow():
 
         self.mainLogin()
 
-        image = Image.open('C:/Python Programs/Project Practice/CustomTkinter/resources/doc.png')
+        image = Image.open('C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/doc.png')
         tk_image = ImageTk.PhotoImage(image)
         image_label1 = customtkinter.CTkLabel(self.introFrame, image=tk_image,text='')
         image_label1.pack(padx=20, pady=30, anchor='ne')
@@ -91,16 +107,16 @@ class MainWindow():
         self.patnersFrame=customtkinter.CTkFrame(self.introFrame,width=1200,height=360,fg_color="#caf0f8",border_width=0,border_color="#6464ff")
         self.patnersFrame.pack(padx=180,anchor="nw")
 
-        self.hospitallogo1 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h1.png")
-        self.hospitallogo2 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h2.png")
-        self.hospitallogo3 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h3.png")
-        self.hospitallogo4 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h4.png")
-        self.hospitallogo5 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h5.png")
-        self.hospitallogo6 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h6.png")
-        self.hospitallogo7 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h7.png")
-        self.hospitallogo8 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h8.png")
-        self.hospitallogo9 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h9.png")
-        self.hospitallogo10 = Image.open("C:/Python Programs/Project Practice/CustomTkinter/resources/h10.png")
+        self.hospitallogo1 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h1.png")
+        self.hospitallogo2 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h2.png")
+        self.hospitallogo3 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h3.png")
+        self.hospitallogo4 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h4.png")
+        self.hospitallogo5 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h5.png")
+        self.hospitallogo6 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h6.png")
+        self.hospitallogo7 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h7.png")
+        self.hospitallogo8 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h8.png")
+        self.hospitallogo9 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h9.png")
+        self.hospitallogo10 = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/resources/h1.png")
 
         self.logo1Image = ImageTk.PhotoImage(self.hospitallogo1)
         self.logo2Image = ImageTk.PhotoImage(self.hospitallogo2)
@@ -252,6 +268,10 @@ class MainWindow():
 
 
     def login_button(self):
+        
+        email=f'{self.entry1.get()}'
+        password=f'{self.entry2.get}'
+        auth.create_user_with_email_and_password(email,password)
 
         try:
             self.loginCreditionalsCheck()  # Check if all fields are filled

@@ -4,32 +4,34 @@ import re
 from datetime import datetime
 from tkinter import ttk
 
-class Window:
-    def __init__(self):
-        self.root=customtkinter.CTk(fg_color="#caf0f8")
-        self.windowColor=customtkinter.set_appearance_mode("light")
-        self.theme=customtkinter.set_default_color_theme("green")
-        self.window_width=self.root.winfo_screenwidth()
-        self.window_height=self.root.winfo_screenheight()
-        self.root.geometry(f"{self.window_width}x{self.window_height}")
+class Progress:
+    
+    def __init__(self,root,window_width,profileFrame):
+        self.root=root
+        self.window_width=window_width
+        self.profileFrame = profileFrame
+        # self.windowColor=customtkinter.set_appearance_mode("light")
+        # self.theme=customtkinter.set_default_color_theme("green")
+        # self.window_width=self.root.winfo_screenwidth()
+        # self.window_height=self.root.winfo_screenheight()
+        # self.root.geometry(f"{self.window_width}x{self.window_height}")
         
-        self.profileLabel=customtkinter.CTkLabel(self.root,text="Your Profile",font=("Roboto",28))
-        self.profileLabel.pack(pady=20)
+        
 
         self.profile()
         
 
-    def updateProfile(self):
-        self.updateButton=customtkinter.CTkButton(self.root,text="Complete Profile",width=50,font=("Roboto",20),command=self.setUp,fg_color="#4C72B0",hover_color="#78C2F0")
-        self.updateButton.pack(side=customtkinter.TOP,anchor=customtkinter.NW,padx=685)  
         
         
 
     def profile(self):
-        self.updateProfile()
 
-        self.profileFrame = customtkinter.CTkScrollableFrame(self.root, width=1200, height=1000, border_width=2, border_color="#76D7C4")
-        self.profileFrame.pack(pady=50)
+        self.updateButtonFrame = customtkinter.CTkFrame(self.profileFrame,width=1100,height=170,fg_color="#caf0f8")
+        self.updateButtonFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=20,padx=500)
+
+        self.updateButton=customtkinter.CTkButton(self.updateButtonFrame,text="Complete Profile",width=50,font=("Roboto",20),command=self.setUp,fg_color="#4C72B0",hover_color="#78C2F0")
+        self.updateButton.pack(side=customtkinter.TOP)  
+        
 
         self.personalILabel = customtkinter.CTkLabel(self.profileFrame, text="Personal Information", font=("Roboto", 20), text_color="blue")
         self.personalILabel.pack(side=customtkinter.TOP, anchor=customtkinter.NW,pady=10)
@@ -114,15 +116,19 @@ class Window:
         self.profileFrame.pack_forget()
         self.updateButton.pack_forget()
 
+
         self.progressBar = ttk.Progressbar(self.root,orient="vertical",length=900)
         self.progressBar.pack(side=customtkinter.RIGHT,anchor=customtkinter.NW,padx=30,pady=60)
+
+        self.nullValueLabel=customtkinter.CTkLabel(self.profileFrame,text="**IF YOU DON'T KNOW ANY PARAMETER THEN GIVE NaN OR 00**",font=("Roboto",10),text_color="red")
+        self.nullValueLabel.pack()
 
         self.mainFrame=customtkinter.CTkScrollableFrame(self.root,width=1200,height=700,border_width=2,border_color="#76D7C4")
         #self.mainFrame.pack_propagate(False)
         self.mainFrame.pack(pady=50)
 
-        self.nullValueLabel=customtkinter.CTkLabel(self.root,text="**IF YOU DON'T KNOW ANY PARAMETER THEN GIVE NaN OR 00**",font=("Roboto",20),text_color="red")
-        self.nullValueLabel.pack()
+        # self.backButton = customtkinter.CTkButton(self.mainFrame,text="Back",width=50,font=("Roboto",20),command=self.mainFrame.pack_forget(),fg_color="#4C72B0",hover_color="#78C2F0")
+        # self.backButton.pack(side=customtkinter.TOP)
 
         self.personalInfoLabel=customtkinter.CTkLabel(self.mainFrame,text="Personal Information",font=("Roboto",20),text_color="blue")
         self.personalInfoLabel.pack(side=customtkinter.TOP,anchor=customtkinter.NW)
@@ -565,7 +571,7 @@ class Window:
         self.root.mainloop()
 
 if __name__=="__main__":
-    app=Window()
+    app=Progress()
     app.run()
 
 
