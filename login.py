@@ -271,7 +271,7 @@ class MainWindow():
         
         email=f'{self.entry1.get()}'
         password=f'{self.entry2.get}'
-        auth.create_user_with_email_and_password(email,password)
+        auth.sign_in_with_email_and_password(email,password)    
 
         try:
             self.loginCreditionalsCheck()  # Check if all fields are filled

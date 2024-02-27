@@ -19,13 +19,15 @@ storage=firebase.storage()
 
 #Authentication
 
-email=input('Enter your email:-')
-password=input('enter your password:-')
+# email=input('Enter your email:-')
+# password=input('enter your password:-')
 
 
-# auth.sign_in_with_email_and_password(email,password)
-# print("Successfully loged in ")
+# # auth.sign_in_with_email_and_password(email,password)
+# # print("Successfully loged in ")
 
-auth.create_user_with_email_and_password(email,password)
-print('SignedIn successfully')
+# auth.create_user_with_email_and_password(email,password)
+# print('SignedIn successfully')
+
+data={'age':'21','name':'Harshal','course':'Computer'}
 
