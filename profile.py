@@ -3,7 +3,14 @@ from tkinter import messagebox
 import re
 from datetime import datetime
 from tkinter import ttk
-
+import pyrebase
+import firebase_admin
+from PIL import Image
+from customtkinter import *
+from firebase_admin import credentials
+from firebase_admin import firestore
+# cred = credentials.Certificate(r"C:/Users/Harshal/Downloads/user-profile-fa7a7-firebase-adminsdk-3vt6t-b13404fe9f.json")
+# firebase_admin.initialize_app(cred)
 class Progress:
     
     def __init__(self,root,window_width,profileFrame):
@@ -16,14 +23,8 @@ class Progress:
         # self.window_height=self.root.winfo_screenheight()
         # self.root.geometry(f"{self.window_width}x{self.window_height}")
         
-        
-
         self.profile()
         
-
-        
-        
-
     def profile(self):
 
         self.updateButtonFrame = customtkinter.CTkFrame(self.profileFrame,width=1100,height=170,fg_color="#caf0f8")
@@ -127,6 +128,12 @@ class Progress:
         #self.mainFrame.pack_propagate(False)
         self.mainFrame.pack(pady=50)
 
+        close_image = Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/arctic_squad/resources/close.png")
+        # Create a CTkImage object
+        close_ctk_image = CTkImage(dark_image=close_image, size=(12, 12))
+        # Create the button with the CTkImage object
+        self.closeImageButton = CTkButton(self.mainFrame, image=close_ctk_image, text="", height=12, width=12, fg_color="white",hover_color="red",command=self.back)
+        self.closeImageButton.place(x=1198, y=0,anchor="ne")
         # self.backButton = customtkinter.CTkButton(self.mainFrame,text="Back",width=50,font=("Roboto",20),command=self.mainFrame.pack_forget(),fg_color="#4C72B0",hover_color="#78C2F0")
         # self.backButton.pack(side=customtkinter.TOP)
 
@@ -341,7 +348,13 @@ class Progress:
         if not re.match(r"^[0-9]+$",postalCode):
             raise ValueError("Enter Correct Postal Code")
         
-
+    def back(self):
+        
+        self.mainFrame.pack_forget()
+        self.progressBar.pack_forget()
+        self.profileFrame.pack(pady=50)
+        self.updateButton.pack(side=customtkinter.TOP)
+    
     def physicalChar(self):
 
         try:

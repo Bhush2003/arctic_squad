@@ -30,4 +30,8 @@ storage=firebase.storage()
 # print('SignedIn successfully')
 
 data={'age':'21','name':'Harshal','course':'Computer'}
+#records=db.child('users').child('guest').set(data)
+# record=db.child('users').child('guest').get(data)
+# print(record.to_dict())
 
+records = db.collection()

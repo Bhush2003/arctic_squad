@@ -1,4 +1,5 @@
 import customtkinter
+from customtkinter import *
 import tkinter
 from  tkinter import messagebox 
 from PIL import ImageTk, Image
@@ -6,6 +7,7 @@ import webbrowser
 from record import App
 from profile import Progress
 from signUp import PatientSignupApp
+from PIL import ImageTk,Image
 import pyrebase
 firebaseConfig = {
   "apiKey": "AIzaSyC8syT4_Lykgkqu_nfZ7mBL-i5fPedwK7E",
@@ -39,8 +41,13 @@ class MainWindow():
         self.dashbord()
 
     def mainLogin(self):
-        self.loginbutton2 = customtkinter.CTkButton(self.introFrame, text="LogIn", font=("Roboto",25), corner_radius=2, fg_color="#00157c", hover_color="#00b4d8", command=self.create_login_frame)
-        self.loginbutton2.place(relx=0.2, rely=0.2, anchor="nw")
+        try:
+            self.frame.destroy()
+        except:
+            pass
+        finally:    
+            self.loginbutton2 = customtkinter.CTkButton(self.introFrame, text="LogIn", font=("Roboto",25), corner_radius=2, fg_color="#00157c", hover_color="#00b4d8", command=self.create_login_frame)
+            self.loginbutton2.place(relx=0.2, rely=0.2, anchor="nw")
 
 
     def dashbord(self):
@@ -230,9 +237,15 @@ class MainWindow():
             self.patientSinupFrame.destroy()
         except:
             pass
+        
+        
 
         self.frame = customtkinter.CTkFrame(self.root, width=340, height=360, fg_color='#cad9f8')
         self.frame.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
+        
+        self.closeImage = CTkImage(dark_image=Image.open("C:/Users/Harshal/OneDrive/Desktop/PythonXProject/PythonXProject/arctic_squad/resources/close.png"),size=(12,12))
+        self.closeImageButton = customtkinter.CTkButton(self.frame,image=self.closeImage,text="",height=12,width=12,fg_color="white",hover_color="red",command=self.mainLogin)
+        self.closeImageButton.place(x=338,y=0,anchor="ne")
 
         self.l2 = customtkinter.CTkLabel(master=self.frame, text="Log into your Account", font=("Roboto", 20))
         self.l2.place(x=50, y=45)
@@ -305,11 +318,8 @@ class MainWindow():
             self.historyFrame.pack_forget()
         except:
             pass
-
-
         
-
-
+        
         self.introFrame.pack()
 
 
@@ -348,27 +358,45 @@ class MainWindow():
         
 
     def profile(self):
-        self.introFrame.pack_forget()
+        try:
+            self.introFrame.pack_forget()
+        except:
+            pass    
         try:
             self.healthFrame.pack_forget()
         except:
             pass      
+        
+        try:
+            self.historyFrame.pack_forget()
+        except:
+            pass    
 
         self.profileFrame = customtkinter.CTkScrollableFrame(self.root, width=1200, height=1000, border_width=2, border_color="#76D7C4")
         self.profileFrame.pack(pady=50)
         self.profileObj = Progress(self.root,self.window_width,self.profileFrame)
 
     def history(self):
+        
+        try:
+            self.introFrame.pack_forget()
+        except:
+            pass    
 
         try:
             self.healthFrame.pack_forget()
         except:
             pass
         
+        try:
+            self.profileFrame.pack_forget()
+        except:
+            pass    
+        
         self.historyFrame = customtkinter.CTkScrollableFrame(self.root, width=1200, height=1000, border_width=2, border_color="#76D7C4")
         self.historyFrame.pack(pady=50)
 
-        self.introFrame.pack_forget()
+        
        
         self.historyObj = App(self.root,self.historyFrame)
 
