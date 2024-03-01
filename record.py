@@ -3,6 +3,8 @@ import pyrebase
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import re
+from tkinter import messagebox
 cred = credentials.Certificate(r"C:/Users/Harshal/Downloads/user-profile-fa7a7-firebase-adminsdk-3vt6t-b13404fe9f.json")
 firebase_admin.initialize_app(cred)
         
@@ -23,6 +25,7 @@ firebase=pyrebase.initialize_app(firebaseConfig)
 db=firebase.database()
 auth=firebase.auth()
 storage=firebase.storage()
+
 class App:
    
     def __init__(self,root,historyFrame): 
@@ -36,25 +39,30 @@ class App:
         self.header_text=customtkinter.CTkLabel(self.recordFrame,text='RECORDS',pady=30,font=('Algerian',50),text_color='#00157c')
         self.header_text.pack()
         
-        self.addButton=customtkinter.CTkButton(self.recordFrame,width=70,height=50,text='Previous',command=self.display_data)
-        self.addButton.pack(side=customtkinter.TOP, anchor=customtkinter.NW,padx=500)
+        self.previousData=customtkinter.CTkButton(self.recordFrame,height=10,text='Previous Data',font=('Roboto',18),command=self.display_data)
+        self.previousData.place(x=250,y=90,anchor="nw")
         
-        self.addButton=customtkinter.CTkButton(self.recordFrame,width=70,height=50,text='Add',command=self.fill_Info)
-        self.addButton.pack(side=customtkinter.TOP, anchor=customtkinter.NW,padx=500)
+        self.addButton=customtkinter.CTkButton(self.recordFrame,height=10,text='Add',command=self.fill_Info,font=('Roboto',18))
+        self.addButton.place(x=800,y=90,anchor="nw")
+        
+        # self.addButton=customtkinter.CTkButton(self.recordFrame,width=70,height=50,text='Previous',command=self.display_data)
+        # self.addButton.pack(side=customtkinter.TOP, anchor=customtkinter.NW,padx=500)
+        
+        # self.addButton=customtkinter.CTkButton(self.recordFrame,width=70,height=50,text='Add',command=self.fill_Info)
+        # self.addButton.pack(side=customtkinter.TOP, anchor=customtkinter.NW,padx=500)
         
         self.base_Frame=customtkinter.CTkScrollableFrame(self.recordFrame,height=500,width=400,scrollbar_button_color='white')
-        self.base_Frame.pack(side=customtkinter.LEFT, anchor=customtkinter.NW,padx=150)
+        self.base_Frame.pack(side=customtkinter.LEFT, anchor=customtkinter.NW,padx=150,pady=15)
 
         
         
         # self.info_storing_frame=customtkinter.CTkScrollableFrame(self.base_Frame,height=500,orientation='vertical',width=950,border_color='cyan',border_width=1)   
         # self.info_storing_frame.pack(side=customtkinter.TOP,anchor=customtkinter.CENTER,padx=60,pady=100)
-        
-        
+          
     def fill_Info(self):    
         
         self.input_Taking_frame=customtkinter.CTkFrame(self.recordFrame,height=500,width=400,border_color='cyan',border_width=2)
-        self.input_Taking_frame.pack(side=customtkinter.TOP,anchor=customtkinter.CENTER,padx=30)
+        self.input_Taking_frame.pack(side=customtkinter.TOP,anchor=customtkinter.CENTER,padx=30,pady=20)
         
         self.hospital=customtkinter.CTkLabel(self.input_Taking_frame,text='Hospital : ',font=('Roboto',20))
         self.hospital.place(x=20,y=20,anchor='nw')
@@ -78,7 +86,13 @@ class App:
         
         self.doctor_Entry=customtkinter.CTkEntry(self.input_Taking_frame,height=30,width=140,placeholder_text='Enter Doctor Name')
         self.doctor_Entry.place(x=150,y=80,anchor='nw')
-        
+        # try:
+            
+        #     if not re.match(r"^[A-Za-z]+$",self.doctor):
+        #         raise ValueError('Enter Valid Doctor Name')
+        # except ValueError as e:
+        #     messagebox.showerror('ERROR',str(e))
+        #     return
         
         self.diagnosis=customtkinter.CTkLabel(self.input_Taking_frame,text='Diagnosis : ',font=('Roboto',20))
         self.diagnosis.place(x=20,y=140,anchor='nw')
@@ -112,13 +126,20 @@ class App:
         
         self.submit_button=customtkinter.CTkButton(self.input_Taking_frame,text='Save',height=30,width=50,command=self.function)
         self.submit_button.place(x=100,y=250,anchor='nw')
+    
+    def validString(self):
+        doctorname=self.doctor_Entry.get()
+        
+        if not re.match(r"^[A-Za-z]+$",doctorname):
+            raise ValueError('Enter Valid Doctor Name')
+             
     def display_data(self):
         
         db=firestore.client()
         
         result = db.collection("RecordsCollection").get()
         try:
-            for i in range(9):
+            for i in range(10):
                 hospitalName=result[i].to_dict().get('Hospital')
                 doctorName=result[i].to_dict().get('Doctor')
                 diagnosisName=result[i].to_dict().get('Diagnosis')
@@ -134,6 +155,12 @@ class App:
             
     def function(self):
         
+        try:
+            self.validString()
+        except ValueError as e:
+            messagebox.showerror('ERROR',str(e))
+            return    
+        
         db=firestore.client()
         
         doc_ref=db.collection('RecordsCollection').add({
@@ -142,12 +169,6 @@ class App:
         'Diagnosis':f'{self.diagnosis_Entry.get()}',
         'Symptoms':f'{self.symptoms_Entry.get()}',
         })
-        
-        
-        
-        
-        
-        
         
         # self.doctor=customtkinter.CTkLabel(self.base_Frame,text=f'Doctor : {doctorName}',font=('Roboto',20))
         # self.doctor.pack(padx=20,pady=20,side=customtkinter.TOP,anchor=customtkinter.NW)
@@ -158,13 +179,8 @@ class App:
         # self.symptoms=customtkinter.CTkLabel(self.base_Frame,text=f'Symptoms : {symptomsName}',font=('Roboto',20))
         # self.symptoms.pack(padx=20,pady=20,side=customtkinter.TOP,anchor=customtkinter.NW)
         
-        
-        
         self.input_Taking_frame.destroy()
-        
-       
-        
-        
+         
     def run(self):
         self.recordFrame.mainloop()        
 

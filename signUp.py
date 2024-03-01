@@ -104,7 +104,7 @@ class PatientSignupApp:
         self.label_cpassward.place(x=280,y=170,anchor="nw")
         self.entry_cpassward.place(x=400,y=170,anchor="nw")
 
-        self.signup_button = customtkinter.CTkButton(self.patientSinupFrame, text="Signup",command=self.create_User)
+        self.signup_button = customtkinter.CTkButton(self.patientSinupFrame, text="Signup",command=self.create_User())
         self.signup_button.place(x=220,y=250,anchor="nw")
 
     # def function1(self):

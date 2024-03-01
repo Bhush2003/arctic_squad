@@ -5,6 +5,7 @@ from  tkinter import messagebox
 from PIL import ImageTk, Image
 import webbrowser
 from record import App
+from firebase_admin import firestore
 from profile import Progress
 from signUp import PatientSignupApp
 from PIL import ImageTk,Image
@@ -49,7 +50,6 @@ class MainWindow():
             self.loginbutton2 = customtkinter.CTkButton(self.introFrame, text="LogIn", font=("Roboto",25), corner_radius=2, fg_color="#00157c", hover_color="#00b4d8", command=self.create_login_frame)
             self.loginbutton2.place(relx=0.2, rely=0.2, anchor="nw")
 
-
     def dashbord(self):
 
         self.dashbordFrame = customtkinter.CTkFrame(self.root, width=self.window_width, height=60, fg_color='#00157c',corner_radius=0)
@@ -79,10 +79,6 @@ class MainWindow():
 
         self.homeButton = customtkinter.CTkButton(self.dashbordFrame,fg_color="#191970",width=0.8,text='Home',font=('Roboto',18),text_color='white',hover=True,hover_color='#008b8b',command=self.home)
         self.homeButton.place(x=self.window_width-430,y=20,anchor="nw")
-
-    
-
-        
 
     def intro(self):
 
@@ -186,6 +182,41 @@ class MainWindow():
         self.whatWeDoStatementText = "Monitor real-time health-related data for community health indicators. \nWe collect data from nearly 600 hospitals and \n3,600 ambulatory systems."
         self.whatWeDoStatementLabel = customtkinter.CTkLabel(self.aboutUsFrame,text=self.whatWeDoStatementText,text_color="#00157c",font=("Georgia",21))
         self.whatWeDoStatementLabel.pack(padx=10)
+        
+        self.members()
+
+    def members(self):
+        self.membersFrame = customtkinter.CTkFrame(self.introFrame,width=1450,height=150,fg_color="#caf0f8",border_color="#6464ff",border_width=1)
+        self.membersFrame.pack(padx=10,pady=20,anchor="nw")
+        self.membersFrame.pack_propagate(True)
+
+        self.membersText = "TEAM MEMBERS"
+        self.membersLabel = customtkinter.CTkLabel(self.membersFrame,text=self.membersText,text_color="#00157c",font=("Algerian",25))
+        self.membersLabel.place(x=650,y=20,anchor="nw")
+
+        self.member1Label = customtkinter.CTkButton(self.membersFrame,text="Harshal Wadne",text_color="white",fg_color="blue",hover_color="#008b8b",font=("Algerian",21),command=self.member1_url)
+        self.member1Label.place(x=20,y=80,anchor="nw")
+
+        self.member2Label = customtkinter.CTkButton(self.membersFrame,text="Tejas Tathe",text_color="white",fg_color="blue",hover_color="#008b8b",font=("Algerian",21),command=self.member2_url)
+        self.member2Label.place(x=320,y=80,anchor="nw")
+
+        self.member3Label = customtkinter.CTkButton(self.membersFrame,text="Uday Rasal",text_color="white",fg_color="blue",hover_color="#008b8b",font=("Algerian",21),command=self.member3_url)
+        self.member3Label.place(x=620,y=80,anchor="nw")
+
+        self.member4Label = customtkinter.CTkButton(self.membersFrame,text="Bhushan Chaudhari",text_color="white",fg_color="blue",hover_color="#008b8b",font=("Algerian",21),command=self.member4_url)
+        self.member4Label.place(x=920,y=80,anchor="nw")
+
+    def member1_url(self):
+        webbrowser.open("https://www.linkedin.com/in/harshal-wadne-36169522b/")
+
+    def member2_url(self):
+        webbrowser.open("https://www.linkedin.com/in/tejas-tathe-106ab0255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app")
+
+    def member3_url(self):
+        webbrowser.open("https://www.linkedin.com/in/udaysinha-rasal-0a1a78284/")
+
+    def member4_url(self):
+        webbrowser.open("https://www.linkedin.com/in/bhushan-chaudhari-1748a0246/")
 
     def open_url1(self):
         webbrowser.open("http://www.wadiahospitals.org/")
@@ -225,10 +256,6 @@ class MainWindow():
         self.patientSinupFrame.place(relx=0.5, rely=0.2, anchor=tkinter.CENTER)
 
         self.signUpObj = PatientSignupApp(self.root,self.patientSinupFrame,self.create_login_frame)
-
-
-
-    
 
     def create_login_frame(self):
 
@@ -271,14 +298,12 @@ class MainWindow():
                                           fg_color='#00458B', hover=True, width=0.5, height=0.3, hover_color='#3FD2C7',corner_radius=5,command=self.patientSignUp)
         self.button2.place(x=170, y=255)
 
-
     def loginCreditionalsCheck(self):
         self.loginFields = [(self.entry1,"Username"),(self.entry2,"Password")]
 
         for loginField, loginLabel in self.loginFields:
             if isinstance(loginField, customtkinter.CTkEntry) and not loginField.get():
                 raise ValueError(f"Please fill in {loginLabel}")
-
 
     def login_button(self):
         
@@ -335,16 +360,14 @@ class MainWindow():
 
     def logout(self):
 
-        self.loginbutton2.place(relx=0.2, rely=0.2, anchor="nw")
-        self.b2.place(x=self.window_width-160,y=20,anchor="nw")
+        # self.loginbutton2.place(relx=0.2, rely=0.2, anchor="nw")
+        # self.b2.place(x=self.window_width-160,y=20,anchor="nw")
 
-        self.historyButton.destroy()
-        self.profileButton.destroy()
-        self.homeButton.destroy()
-        self.logoutButton.destroy()
-
-
-
+        # self.historyButton.destroy()
+        # self.profileButton.destroy()
+        # self.homeButton.destroy()
+        # self.logoutButton.destroy()
+        exit()
 
     def health(self):
 
@@ -355,8 +378,6 @@ class MainWindow():
 
         self.bmiFrame = customtkinter.CTkFrame(self.healthFrame,width=500)
         
-        
-
     def profile(self):
         try:
             self.introFrame.pack_forget()
@@ -395,13 +416,31 @@ class MainWindow():
         
         self.historyFrame = customtkinter.CTkScrollableFrame(self.root, width=1200, height=1000, border_width=2, border_color="#76D7C4")
         self.historyFrame.pack(pady=50)
-
         
-       
         self.historyObj = App(self.root,self.historyFrame)
+        # self.display_data()
 
 
-
+    # def display_data(self):
+        
+    #     db=firestore.client()
+        
+    #     result = db.collection("RecordsCollection").get()
+    #     try:
+    #         for i in range(9):
+    #             hospitalName=result[i].to_dict().get('Hospital')
+    #             doctorName=result[i].to_dict().get('Doctor')
+    #             diagnosisName=result[i].to_dict().get('Diagnosis')
+    #             symptomsName=result[i].to_dict().get('Symptoms')
+                
+    #             self.hospital=customtkinter.CTkLabel(self.base_Frame,text_color='#00157c',text=f'Hospital : {hospitalName}\n \n Doctor : {doctorName}\n \n Diagnosis : {diagnosisName}\n \n Symptoms : {symptomsName}',font=('Roboto',20))
+    #             self.hospital.pack(padx=20,pady=20,side=customtkinter.TOP,anchor=customtkinter.NW)
+                
+    #             self.symptoms=customtkinter.CTkLabel(self.base_Frame,text=f'-------------------------------------------------------------------\n',font=('Roboto',20))
+    #             self.symptoms.pack(padx=20,pady=20,side=customtkinter.TOP,anchor=customtkinter.NW)
+    #     except:
+    #         print('index out of range')        
+            
 
     def run(self):
         self.root.mainloop()
@@ -409,15 +448,3 @@ class MainWindow():
 if __name__=="__main__":
     app=MainWindow()
     app.run()
-
-
-
-
-
-
-
-
-
-
-
-

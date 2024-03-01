@@ -29,87 +29,118 @@ class Progress:
 
         self.updateButtonFrame = customtkinter.CTkFrame(self.profileFrame,width=1100,height=170,fg_color="#caf0f8")
         self.updateButtonFrame.pack(side=customtkinter.TOP,anchor=customtkinter.NW,pady=20,padx=500)
+        
+        
 
         self.updateButton=customtkinter.CTkButton(self.updateButtonFrame,text="Complete Profile",width=50,font=("Roboto",20),command=self.setUp,fg_color="#4C72B0",hover_color="#78C2F0")
         self.updateButton.pack(side=customtkinter.TOP)  
         
-
-        self.personalILabel = customtkinter.CTkLabel(self.profileFrame, text="Personal Information", font=("Roboto", 20), text_color="blue")
+        db=firestore.client()
+        
+        # doc_ref=db.collection('UserInfoCollection').add({
+        # 'Full_Name':f'{self.fNameEntry.get()+self.mNameEntry.get()+self.lNameEntry.get()}',
+        # 'Dob':f'{self.dobEntry.get()}',
+        # 'Age':f'{self.ageEntry.get()}',
+        # 'Gender':f'{self.genderOption.get()}',
+        # 'mobile':f'{self.mobileNoEntry.get()}',
+        # 'email':f'{self.emailEntry.get()}',
+        # 'Address':f'{self.streetAddressEntry.get()} {self.stateProvinceEntry.get()} {self.postalCodeEntry.get()}',
+        # 'height':f'{self.heightEntry.get()}',
+        # 'weight':f'{self.weightEntry.get()}',
+        # 'disablity':f'{self.disabilityOption.get()}',
+        # 'heartRate':f'{self.heartRateEntry.get()}',
+        # 'BloodPressure':f'{self.bloodPressureEntry.get()}',
+        # 'temperature':f'{self.temperatureEntry.get()}',
+        # 'oxygenSaturation':f'{self.oxygenSaturationEntry.get()}',
+        # 'cholestrol':f'{self.cholesterolLevelEntry.get()}',
+        # 'rbc':f'{self.RBCEntry.get()}',
+        # 'wbc':f'{self.WBCEntry.get()}',
+        # 'smokingStatus':f'{self.smokingAnswer.get()}',
+        # 'alcohol':f'{self.consumptionAnswer.get()}',
+        # 'exercise':f'{self.exerciesAnswer.get()}',
+        # 'diet':f'{self.dietAnswer.get()}'
+        # })
+        
+        db=firestore.client()
+        
+        result = db.collection("UserInfoCollection").get()
+        
+        self.personalILabel = customtkinter.CTkLabel(self.profileFrame, text=f"Personal Information ", font=("Roboto", 20), text_color="blue")
         self.personalILabel.pack(side=customtkinter.TOP, anchor=customtkinter.NW,pady=10)
 
-        self.displayNameLabel = customtkinter.CTkLabel(self.profileFrame, text="Full Name: " , font=("Roboto", 18) )
+        self.displayNameLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Full Name:   {result[0].to_dict().get('Full_Name')}" , font=("Roboto", 18) )
         self.displayNameLabel.pack(anchor="nw")
 
-        self.displayDOBLabel = customtkinter.CTkLabel(self.profileFrame, text="Date of Birth: ", font=("Roboto", 18))
+        self.displayDOBLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Date of Birth:  {result[0].to_dict().get('Dob')}", font=("Roboto", 18))
         self.displayDOBLabel.pack(anchor="nw")
 
-        self.displayAgeLabel = customtkinter.CTkLabel(self.profileFrame, text="Age: ", font=("Roboto", 18))
+        self.displayAgeLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Age:  {result[0].to_dict().get('Age')}", font=("Roboto", 18))
         self.displayAgeLabel.pack(anchor="nw")
 
-        self.displayGenderLabel = customtkinter.CTkLabel(self.profileFrame, text="Gender: ", font=("Roboto", 18))
+        self.displayGenderLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Gender:  {result[0].to_dict().get('Gender')}", font=("Roboto", 18))
         self.displayGenderLabel.pack(anchor="nw")
 
         self.displayContactInfoLabel = customtkinter.CTkLabel(self.profileFrame, text="Contact Information", font=("Roboto", 20), text_color="blue")
         self.displayContactInfoLabel.pack(anchor="nw",pady=10)
 
-        self.displayMobileNoLabel = customtkinter.CTkLabel(self.profileFrame, text="Mobile No: ", font=("Roboto", 18))
+        self.displayMobileNoLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Mobile No:  {result[0].to_dict().get('mobile')}", font=("Roboto", 18))
         self.displayMobileNoLabel.pack(anchor="nw")
         
-        self.displayeEmailLabel = customtkinter.CTkLabel(self.profileFrame, text="Email: ", font=("Roboto", 18))
+        self.displayeEmailLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Email:  {result[0].to_dict().get('email')}", font=("Roboto", 18))
         self.displayeEmailLabel.pack(anchor="nw")
 
-        self.displayFullAddressLabel = customtkinter.CTkLabel(self.profileFrame, text="Address: ", font=("Roboto", 18))
+        self.displayFullAddressLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Address:  {result[0].to_dict().get('Address')}", font=("Roboto", 18))
         self.displayFullAddressLabel.pack(anchor="nw")
 
         self.displayPhysicalCharInfoLabel = customtkinter.CTkLabel(self.profileFrame, text="Physical Characteristics", font=("Roboto", 20), text_color="blue")
         self.displayPhysicalCharInfoLabel.pack(anchor="nw",pady=10)
 
-        self.displayHeightLabel = customtkinter.CTkLabel(self.profileFrame, text="Height (cm): ", font=("Roboto", 18))
+        self.displayHeightLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Height (cm):  {result[0].to_dict().get('height')}", font=("Roboto", 18))
         self.displayHeightLabel.pack(anchor="nw")
 
-        self.displayWeightLabel = customtkinter.CTkLabel(self.profileFrame, text="Weight (kg): ", font=("Roboto", 18))
+        self.displayWeightLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Weight (kg) :  {result[0].to_dict().get('weight')}", font=("Roboto", 18))
         self.displayWeightLabel.pack(anchor="nw")
 
-        self.displayDisablityLabel = customtkinter.CTkLabel(self.profileFrame, text="Disability: ", font=("Roboto", 18))
+        self.displayDisablityLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Disability:  {result[0].to_dict().get('disablity')}", font=("Roboto", 18))
         self.displayDisablityLabel.pack(anchor="nw")
 
         self.displayVitalSignsInfoLabel = customtkinter.CTkLabel(self.profileFrame, text="Vital Signs ", font=("Roboto", 20), text_color="blue")
         self.displayVitalSignsInfoLabel.pack(anchor="nw",pady=10)
 
-        self.displayHeartRateLabel = customtkinter.CTkLabel(self.profileFrame, text="Heart rate (BPM): ", font=("Roboto", 18))
+        self.displayHeartRateLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Heart rate (BPM):  {result[0].to_dict().get('heartRate')}", font=("Roboto", 18))
         self.displayHeartRateLabel.pack(anchor="nw")
         
-        self.displayBloodPressureLabel = customtkinter.CTkLabel(self.profileFrame, text="Blood pressure (mmHg): ", font=("Roboto", 18))
+        self.displayBloodPressureLabel = customtkinter.CTkLabel(self.profileFrame, text=f"Blood pressure (mmHg):  {result[0].to_dict().get('BloodPressure')}", font=("Roboto", 18))
         self.displayBloodPressureLabel.pack(anchor="nw")
 
-        self.displayTemperatureLabel=customtkinter.CTkLabel(self.profileFrame,text="Temperature (°F): ",font=("Roboto",18))
+        self.displayTemperatureLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Temperature (°F):  {result[0].to_dict().get('temperature')}",font=("Roboto",18))
         self.displayTemperatureLabel.pack(anchor="nw")
         
-        self.displayOxygenSaturationLabel=customtkinter.CTkLabel(self.profileFrame,text="Oxygen Saturation (%): ",font=("Roboto",18))
+        self.displayOxygenSaturationLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Oxygen Saturation (%):  {result[0].to_dict().get('oxygenSaturation')}",font=("Roboto",18))
         self.displayOxygenSaturationLabel.pack(anchor="nw")
         
-        self.displayCholesterolLevelLabel=customtkinter.CTkLabel(self.profileFrame,text="Cholesterol Level (mg/dL): ",font=("Roboto",18))
+        self.displayCholesterolLevelLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Cholesterol Level (mg/dL):  {result[0].to_dict().get('cholestrol')}",font=("Roboto",18))
         self.displayCholesterolLevelLabel.pack(anchor="nw")
         
-        self.displayRBCLabel=customtkinter.CTkLabel(self.profileFrame,text="Red Blood Cell Count (T/L): ",font=("Roboto",18))
+        self.displayRBCLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Red Blood Cell Count (T/L):  {result[0].to_dict().get('rbc')}",font=("Roboto",18))
         self.displayRBCLabel.pack(anchor="nw")
         
-        self.displayWBCLabel=customtkinter.CTkLabel(self.profileFrame,text="White Blood Cell Count (B/L): ",font=("Roboto",18))
+        self.displayWBCLabel=customtkinter.CTkLabel(self.profileFrame,text=f"White Blood Cell Count (B/L):  {result[0].to_dict().get('wbc')}",font=("Roboto",18))
         self.displayWBCLabel.pack(anchor="nw")
 
         self.displayLifestyleInfoLabel=customtkinter.CTkLabel(self.profileFrame,text="Lifestyle and Behavioral Factors ",font=("Roboto",20),text_color="blue")
         self.displayLifestyleInfoLabel.pack(anchor="nw",pady=10)
 
-        self.displaySmokingStatusLabel=customtkinter.CTkLabel(self.profileFrame,text="Smoking Status:",font=("Roboto",18))
+        self.displaySmokingStatusLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Smoking Status:  {result[0].to_dict().get('smokingStatus')}",font=("Roboto",18))
         self.displaySmokingStatusLabel.pack(anchor="nw")
         
-        self.displayAlcoholConsumptionLabel=customtkinter.CTkLabel(self.profileFrame,text="Alcohol Consumption:",font=("Roboto",18))
+        self.displayAlcoholConsumptionLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Alcohol Consumption:  {result[0].to_dict().get('alcohol')}",font=("Roboto",18))
         self.displayAlcoholConsumptionLabel.pack(anchor="nw")
         
-        self.displayPhysicalExerciseLevelLabel=customtkinter.CTkLabel(self.profileFrame,text="Physical Exercise Level:",font=("Roboto",18))
+        self.displayPhysicalExerciseLevelLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Physical Exercise Level:  {result[0].to_dict().get('exercise')}",font=("Roboto",18))
         self.displayPhysicalExerciseLevelLabel.pack(anchor="nw")
         
-        self.displayDietaryHabitsLabel=customtkinter.CTkLabel(self.profileFrame,text="Dietary Habits:",font=("Roboto",18))
+        self.displayDietaryHabitsLabel=customtkinter.CTkLabel(self.profileFrame,text=f"Dietary Habits:  {result[0].to_dict().get('diet')}",font=("Roboto",18))
         self.displayDietaryHabitsLabel.pack(anchor="nw")
 
     def setUp(self):
@@ -210,7 +241,6 @@ class Progress:
         if not re.match(r'^\d{2}/\d{2}/\d{4}$', dob):
             raise ValueError("Enter valid Date\nThe format should be DD/MM/YYYY")        
         
-
     def contact(self):
 
         try:
@@ -413,7 +443,6 @@ class Progress:
         if not re.match(r"^[0-9]+$",weight):
             raise ValueError("Weight should be Numeric")
 
-
     def vitalSigns(self):
 
         try:
@@ -586,7 +615,3 @@ class Progress:
 if __name__=="__main__":
     app=Progress()
     app.run()
-
-
-
-

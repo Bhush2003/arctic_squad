@@ -1,8 +1,8 @@
 import customtkinter
 from login import MainWindow
 
-
 class Main:
+    
     def __init__(self):
         self.root=customtkinter.CTk(fg_color="#caf0f8")
         self.windowColor=customtkinter.set_appearance_mode("light")
@@ -20,11 +20,3 @@ class Main:
 if __name__=="__main__":
     app=Main()
     app.run()
-
-
-
-
-
-
-
-
